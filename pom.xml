@@ -44,6 +44,7 @@
         <module>unitils-io</module>
 
         <module>unitils-test</module>
+        <module>unitils-sample</module>
         <!--module>unitils-testng-test</module-->       <!-- todo convert tests to TestNG -->
     </modules>
 
@@ -65,24 +66,60 @@
 
     <properties>
         <spring.version>4.2.6.RELEASE</spring.version>
-        <project.build.java.target>1.6</project.build.java.target>
+        <dbmaintain.version>2.7.1-SNAPSHOT</dbmaintain.version>
+        <junit.version>4.13</junit.version>
+        <junit-addons.version>1.4</junit-addons.version>
+        <testng.version>6.5.2</testng.version>
+        <commons-io.version>1.3.2</commons-io.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <commons-logging.version>1.1.1</commons-logging.version>
+        <commons-lang.version>2.3</commons-lang.version>
+        <commons-collections.version>3.2</commons-collections.version>
+        <ognl.version>2.6.9</ognl.version>
+        <dbunit.version>2.7.0</dbunit.version>
+        <xmlunit.version>1.2</xmlunit.version>
+        <easymock.version>3.2</easymock.version>
+        <easymockclassextension.version>3.2</easymockclassextension.version>
+        <cglib.version>2.2</cglib.version>
+        <asm.version>3.1</asm.version>
+        <asm-attrs.version>2.2.3</asm-attrs.version>
+        <objenesis.version>2.1</objenesis.version>
+        <hibernate.version>3.6.10.Final</hibernate.version>
+        <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
+        <slf4j-api.version>1.6.4</slf4j-api.version>
+        <slf4j-nop.version>1.6.4</slf4j-nop.version>
+        <log4j.version>1.2.8</log4j.version>
+        <hsqldb.version>1.8.0.7</hsqldb.version>
+        <h2.version>1.3.174</h2.version>
+        <geronimo-jta_1.1_spec.version>1.1</geronimo-jta_1.1_spec.version>
+        <concurrent.version>1.3.4</concurrent.version>
+
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-shade-plugin.version>2.1</maven-shade-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+        <maven-staging-maven-plugin.version>1.6.7</maven-staging-maven-plugin.version>
+
+        <project.build.java.target>1.8</project.build.java.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!-- Environment Settings -->
     <issueManagement>
-        <system>jira</system>
-        <url>http://jira.unitils.org/browse/UNI</url>
+        <system>github</system>
+        <url>https://github.com/rayminr/unitils/issues</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://svn.code.sf.net/p/unitils/code/tags/releases/unitils-3.4.6</connection>
-        <developerConnection>scm:svn:https://svn.code.sf.net/p/unitils/code/tags/releases/unitils-3.4.6</developerConnection>
-        <url>https://svn.code.sf.net/p/unitils/code/tags/releases/unitils-3.4.6</url>
+        <connection>scm:git:https://github.com/rayminr/unitils.git</connection>
+        <developerConnection>scm:git:https://github.com/rayminr/unitils.git</developerConnection>
+        <url>https://github.com/rayminr/unitils</url>
     </scm>
     <mailingLists>
         <mailingList>
-            <name>User forum</name>
-            <archive>http://sourceforge.net/projects/unitils/forums/forum/570578</archive>
+            <name>contributor</name>
+            <archive>https://github.com/rayminr/unitils/graphs/contributors</archive>
         </mailingList>
     </mailingLists>
     <developers>
@@ -110,7 +147,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${project.build.java.target}</source>
@@ -135,10 +172,10 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>${maven-gpg-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -146,15 +183,13 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
-                        
                     </execution>
                 </executions>
-                
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -167,7 +202,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
@@ -183,7 +218,7 @@
             <!--<plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>${maven-staging-maven-plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>

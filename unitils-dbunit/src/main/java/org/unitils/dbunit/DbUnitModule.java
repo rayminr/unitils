@@ -442,12 +442,11 @@ public class DbUnitModule implements Module {
      * The value of the found annotation determines which files need to be used for the dataset. If one or more filenames are explicitly
      * specified, these names will be used. Filenames that start with '/' are treated absolute. Filenames that do not start with '/', are
      * relative to the current class. If an empty filename ("") is specified, this method will look for a file named 'classname'.xml.
-     * {@link #getDefaultDataSetFileName}).
      * <p/>
      * If a file is not found or could not be loaded (but was requested, because there is an annotation), an exception is thrown.
      *
      * @param testMethod The test method, not null
-     * @param testObject The test object, not null
+     * @param testClass The test object, not null
      * @return The dataset, null if no {@link DataSet} annotation is found.
      */
     public MultiSchemaDataSet getDataSet(DataSet dataSet, Method testMethod, Class<?> testClass) {
